@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "519132597723",
+    "firebase_url": "https://fbmataku.firebaseio.com",
+    "project_id": "fbmataku",
+    "storage_bucket": "fbmataku.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519132597723:android:1a15c07cf969f3a368ebfe",
+        "android_client_info": {
+          "package_name": "com.mataku.mataku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519132597723-ufbknjm245n80o87rdlfuqe68lfu7uu1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mataku.mataku",
+            "certificate_hash": "4e8cb50bd233aca71bdbbd9262d321bb6ff03216"
+          }
+        },
+        {
+          "client_id": "519132597723-pl9f408gi168m0vm53tochluogvrs0ne.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9pm-r6mEWGeZsehk9VeB4SkXtRMSXDaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519132597723-pl9f408gi168m0vm53tochluogvrs0ne.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

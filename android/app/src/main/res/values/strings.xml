@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Mataku</string>
+    <string name="facebook_app_id">694873787663813</string>
+    <string name="fb_login_protocol_scheme">fb694873787663813</string>
+    <!-- [android] facebook_app_id -->
+    <!-- [android] fb_login_protocol_scheme -->
+</resources>
