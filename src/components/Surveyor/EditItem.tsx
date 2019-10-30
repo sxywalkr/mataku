@@ -1,17 +1,19 @@
 import auth from '@react-native-firebase/auth';
 import React, { useEffect, useState } from 'react';
-import { Alert, ScrollView, StyleSheet, View, Image, PixelRatio } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View, Image, PixelRatio, Picker } from 'react-native';
 import {
   Button,
   Paragraph,
   TextInput,
   Title,
   Theme,
+  Subheading,
 } from 'react-native-paper';
 import { firebase } from '@react-native-firebase/storage';
 import ImagePicker from 'react-native-image-picker';
 import database from '@react-native-firebase/database';
 import { NavigationParams, NavigationRoute } from 'react-navigation';
+
 // import GDrive from "react-native-google-drive-api-wrapper";
 // import fs from 'react-native-fs';
 
@@ -48,6 +50,24 @@ function EditItem({ theme, navigation, route }: Props) {
       Alert.alert('Pesan Error', error);
     }
   }, [error]);
+
+  useEffect(() => {
+    // GoogleSignin.configure({});
+    const ref = database().ref(`users/${user.uid}`);
+    ref.once('value', onSnapshot);
+    return () => { ref.off() }
+  }, []);
+
+  function onSnapshot(snapshot) {
+    // console.log(snapshot.val())
+    // setUserName(snapshot.val().userName)
+    // setUserHandphone(snapshot.val().userHandphone)
+    setItemPuskesmas(snapshot.val().userPuskesmas)
+    setItemDesaKelurahan(snapshot.val().userDesaKelurahan)
+    setItemKecamatan(snapshot.val().userKecamatan)
+    setItemKabupaten(snapshot.val().userKabupaten)
+    // setLoadingUser(false);
+  }
 
   const selectPhotoTapped1 = () => {
     const options = {
@@ -94,7 +114,6 @@ function EditItem({ theme, navigation, route }: Props) {
       } else {
         let source = { uri: response.uri };
         setAvatarSource2(source)
-        // console.log(source)
       }
     });
     setLoadingAvatar2(false)
@@ -104,10 +123,29 @@ function EditItem({ theme, navigation, route }: Props) {
     if (!savingItem) {
       try {
         setSavingItem(true)
+
         const itemQ = database().ref(`dbPasien/${user.uid}`).push();
         const QQ = itemKey ? itemKey : itemQ.key;
-        // console.log(q ,itemQ.key)
-        await database().ref('dbPasien/' + QQ).set({
+
+        const ref1 = firebase.storage().ref(`${user.uid}/${QQ}/1.jpg`);
+        const path1 = avatarSource1.uri
+        const task1 = ref1.putFile(path1, {
+          cacheControl: 'no-store', // disable caching
+        })
+          .then(succ => console.log('succ1'))
+          .catch(e => setError(e))
+          ;
+
+        const ref2 = firebase.storage().ref(`${user.uid}/${QQ}/2.jpg`);
+        const path2 = avatarSource2.uri
+        const task2 = ref2.putFile(path2, {
+          cacheControl: 'no-store', // disable caching
+        })
+          .then(succ => console.log('succ2'))
+          .catch(e => setError(e))
+          ;
+
+        await database().ref('dbPasien/' + QQ).update({
           tmUid: user.uid,
           tmName: user.displayName,
           itemUid: QQ,
@@ -124,47 +162,7 @@ function EditItem({ theme, navigation, route }: Props) {
           itemFoto2: avatarSource2.uri,
           itemFlag: 'Item di register'
         });
-        const ref1 = firebase.storage().ref(`${user.uid}/${QQ}/1.jpg`);
-        const path1 = avatarSource1.uri
-        const task1 = ref1.putFile(path1, {
-          cacheControl: 'no-store', // disable caching
-        })
-          .then(succ => console.log(succ))
-          .catch(e => setError(e))
-          ;
-        const ref2 = firebase.storage().ref(`${user.uid}/${QQ}/2.jpg`);
-        const path2 = avatarSource2.uri
-        const task2 = ref2.putFile(path2, {
-          cacheControl: 'no-store', // disable caching
-        })
-          .then(succ => console.log(succ))
-          .catch(e => setError(e))
-          ;
-        //   if (path1.uri) {
-        //     // response.data is the actual image data.
-        //     // response.type can give you the mime for pictures only
-        //     // response.fileName for the name of the file.
-        //     GDrive.files.createFileMultipart(
-        //         response.data,
-        //         response.type, {
-        //             parents: ["root"],
-        //             name: response.fileName,
-        //         }, false);
-        // }
-        // fs.readFile(path1, 'base64')
-        //   .then((res => {             //conversion of image to base64
-        //     console.log(res);
-        //     GDrive.files.createFileMultipart(
-        //       res,
-        //       "'image/jpg'", {
-        //       parents: ["root"], //or any path
-        //       name: "photo.jpg"
-        //     },
-        //       true)              //make it true because you are passing base64 string otherwise the uploaded file will be not supported
-        //       .then(a => {
-        //         console.log(a);
-        //       });
-        //   }))
+
       } catch (e) {
         setError(e.message)
       } finally {
@@ -204,13 +202,25 @@ function EditItem({ theme, navigation, route }: Props) {
           keyboardType='number-pad'
           onChangeText={setItemUmur}
         />
-        <TextInput
+        {/* <TextInput
           style={styles.input}
           mode="outlined"
           label="Jenis Kelamin"
           value={itemJenisKelamin}
           onChangeText={setItemJenisKelamin}
-        />
+        /> */}
+        <View style={{marginTop: 15}}>
+          <Subheading>Jenis Kelamin</Subheading>
+          <Picker
+            selectedValue={itemJenisKelamin}
+            style={{ height: 60, width: 150 }}
+            onValueChange={(itemValue, itemIndex) =>
+              setItemJenisKelamin(itemValue)
+            }>
+            <Picker.Item label="Laki-laki" value="Laki-laki" />
+            <Picker.Item label="Wanita" value="Wanita" />
+          </Picker>
+        </View>
         <TextInput
           style={styles.input}
           mode="outlined"

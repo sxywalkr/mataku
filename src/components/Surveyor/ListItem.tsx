@@ -64,6 +64,10 @@ function ListItem({ theme, navigation }: Props) {
     })
   }
 
+  function onHapus(p) {
+    const ref = database().ref(`dbPasien/${p.itemUid}`).remove();
+  }
+
   if (loading) {
     return <ActivityIndicator style={styles.container} animating={true} />;
   }
@@ -78,7 +82,9 @@ function ListItem({ theme, navigation }: Props) {
             <Button mode='outlined' style={styles.button}
               onPress={() => navigation.navigate('SurveyorEditItem', { q: 'Ubah Data', r: item })}>Detail</Button>
             <Button mode='outlined' style={styles.button}
-              onPress={() => onSubmit(item)}>Submit Data Ke Admin</Button>
+              onPress={() => onHapus(item)}>Hapus</Button>
+            <Button mode='outlined' style={styles.button}
+              onPress={() => onSubmit(item)}>Submit Data</Button>
           </View>
         </View>
       } />
@@ -131,7 +137,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: 'center',
-    marginVertical: 20,
+    marginVertical: 15,
   },
   center: {
     width: '100%',
