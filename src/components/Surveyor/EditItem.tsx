@@ -217,6 +217,7 @@ function EditItem({ theme, navigation, route }: Props) {
             onValueChange={(itemValue, itemIndex) =>
               setItemJenisKelamin(itemValue)
             }>
+            <Picker.Item label="-Pilih-" value="" />
             <Picker.Item label="Laki-laki" value="Laki-laki" />
             <Picker.Item label="Wanita" value="Wanita" />
           </Picker>
