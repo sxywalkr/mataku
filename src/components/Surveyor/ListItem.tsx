@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import React, { useContext, useState, useEffect } from 'react';
-import { StyleSheet, View, FlatList, ScrollView } from 'react-native';
+import { Alert, StyleSheet, View, FlatList, ScrollView } from 'react-native';
 import {
   Avatar,
   Caption,
@@ -68,6 +68,38 @@ function ListItem({ theme, navigation }: Props) {
     const ref = database().ref(`dbPasien/${p.itemUid}`).remove();
   }
 
+  function msgOnHapus(p) {
+    Alert.alert(
+      'Konfirmasi',
+      'Hapus Data Pasien?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => onHapus(p)},
+      ],
+      {cancelable: false},
+    );
+  }
+
+  function msgOnSubmit(p) {
+    Alert.alert(
+      'Konfirmasi',
+      'Data sudah benar? Lanjut submit data ke server',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => onSubmit(p)},
+      ],
+      {cancelable: false},
+    );
+  }
+
   if (loading) {
     return <ActivityIndicator style={styles.container} animating={true} />;
   }
@@ -82,9 +114,9 @@ function ListItem({ theme, navigation }: Props) {
             <Button mode='outlined' style={styles.button}
               onPress={() => navigation.navigate('SurveyorEditItem', { q: 'Ubah Data', r: item })}>Detail</Button>
             <Button mode='outlined' style={styles.button}
-              onPress={() => onHapus(item)}>Hapus</Button>
+              onPress={() => msgOnHapus(item)}>Hapus</Button>
             <Button mode='outlined' style={styles.button}
-              onPress={() => onSubmit(item)}>Submit Data</Button>
+              onPress={() => msgOnSubmit(item)}>Submit Data</Button>
           </View>
         </View>
       } />

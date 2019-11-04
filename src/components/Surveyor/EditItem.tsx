@@ -41,6 +41,8 @@ function EditItem({ theme, navigation, route }: Props) {
   const [itemPuskesmas, setItemPuskesmas] = useState(q === 'New' ? '' : r.itemPuskesmas)
   const [loadingAvatar1, setLoadingAvatar1] = useState(false);
   const [loadingAvatar2, setLoadingAvatar2] = useState(false);
+  const [itemVisusMataKiri, setItemVisusMataKiri] = useState(q === 'New' ? '' : r.itemVisusMataKiri)
+  const [itemVisusMataKanan, setItemVisusMataKanan] = useState(q === 'New' ? '' : r.itemVisusMataKanan)
   const [avatarSource1, setAvatarSource1] = useState(q === 'New' ? null : { uri: r.itemFoto1 });
   const [avatarSource2, setAvatarSource2] = useState(q === 'New' ? null : { uri: r.itemFoto2 });
   const [savingItem, setSavingItem] = useState(false);
@@ -119,6 +121,7 @@ function EditItem({ theme, navigation, route }: Props) {
     setLoadingAvatar2(false)
   }
 
+
   async function handleSubmitItem() {
     if (!savingItem) {
       try {
@@ -158,6 +161,8 @@ function EditItem({ theme, navigation, route }: Props) {
           itemKecamatan,
           itemDesaKelurahan,
           itemPuskesmas,
+          itemVisusMataKiri,
+          itemVisusMataKanan,
           itemFoto1: avatarSource1.uri,
           itemFoto2: avatarSource2.uri,
           itemFlag: 'Item di register'
@@ -209,7 +214,7 @@ function EditItem({ theme, navigation, route }: Props) {
           value={itemJenisKelamin}
           onChangeText={setItemJenisKelamin}
         /> */}
-        <View style={{marginTop: 15}}>
+        <View style={{ marginTop: 15 }}>
           <Subheading>Jenis Kelamin</Subheading>
           <Picker
             selectedValue={itemJenisKelamin}
@@ -257,6 +262,44 @@ function EditItem({ theme, navigation, route }: Props) {
           value={itemPuskesmas}
           onChangeText={setItemPuskesmas}
         />
+        <View style={{ marginTop: 15 }}>
+          <Subheading>Visus Mata Kiri</Subheading>
+          <Picker
+            selectedValue={itemVisusMataKiri}
+            style={{ height: 60, width: 150 }}
+            onValueChange={(itemValue, itemIndex) =>
+              setItemVisusMataKiri(itemValue)
+            }>
+            <Picker.Item label="-Pilih-" value="" />
+            <Picker.Item label="6/60" value="6/60" />
+            <Picker.Item label="5/60" value="5/60" />
+            <Picker.Item label="4/60" value="4/60" />
+            <Picker.Item label="3/60" value="3/60" />
+            <Picker.Item label="1/60" value="1/60" />
+            <Picker.Item label="1/300" value="1/300" />
+            <Picker.Item label="1/∞" value="1/∞" />
+            <Picker.Item label="0" value="0" />
+          </Picker>
+        </View>
+        <View style={{ marginTop: 15 }}>
+          <Subheading>Visus Mata Kanan</Subheading>
+          <Picker
+            selectedValue={itemVisusMataKanan}
+            style={{ height: 60, width: 150 }}
+            onValueChange={(itemValue, itemIndex) =>
+              setItemVisusMataKanan(itemValue)
+            }>
+            <Picker.Item label="-Pilih-" value="" />
+            <Picker.Item label="6/60" value="6/60" />
+            <Picker.Item label="5/60" value="5/60" />
+            <Picker.Item label="4/60" value="4/60" />
+            <Picker.Item label="3/60" value="3/60" />
+            <Picker.Item label="1/60" value="1/60" />
+            <Picker.Item label="1/300" value="1/300" />
+            <Picker.Item label="1/∞" value="1/∞" />
+            <Picker.Item label="0" value="0" />
+          </Picker>
+        </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
           <View style={{ flexDirection: 'column' }}>
             <View style={[styles.avatar, styles.avatarContainer]} >
@@ -292,7 +335,8 @@ function EditItem({ theme, navigation, route }: Props) {
           </View>
         </View>
         <Button
-          disabled={!itemNama || !itemAlamat || !itemUmur || !itemJenisKelamin || !itemPekerjaan || !itemKabupaten || !itemKecamatan || !itemDesaKelurahan || !itemPuskesmas}
+          disabled={!itemNama || !itemAlamat || !itemUmur || !itemJenisKelamin || !itemPekerjaan || !itemKabupaten || !itemKecamatan || !itemDesaKelurahan || !itemPuskesmas
+            || !itemVisusMataKiri || !itemVisusMataKanan || !avatarSource1 === null || !avatarSource2 === null }
           mode="outlined"
           loading={savingItem}
           onPress={handleSubmitItem}
