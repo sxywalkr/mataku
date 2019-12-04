@@ -275,6 +275,7 @@ function EditItem({ theme, navigation, route }: Props) {
             <Picker.Item label="5/60" value="5/60" />
             <Picker.Item label="4/60" value="4/60" />
             <Picker.Item label="3/60" value="3/60" />
+            <Picker.Item label="2/60" value="2/60" />
             <Picker.Item label="1/60" value="1/60" />
             <Picker.Item label="1/300" value="1/300" />
             <Picker.Item label="1/∞" value="1/∞" />
@@ -294,6 +295,7 @@ function EditItem({ theme, navigation, route }: Props) {
             <Picker.Item label="5/60" value="5/60" />
             <Picker.Item label="4/60" value="4/60" />
             <Picker.Item label="3/60" value="3/60" />
+            <Picker.Item label="2/60" value="2/60" />
             <Picker.Item label="1/60" value="1/60" />
             <Picker.Item label="1/300" value="1/300" />
             <Picker.Item label="1/∞" value="1/∞" />

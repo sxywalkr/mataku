@@ -13,6 +13,7 @@ import {
   withTheme,
   Button,
   ActivityIndicator,
+  Paragraph,
 } from 'react-native-paper';
 import database from '@react-native-firebase/database';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -76,6 +77,7 @@ function ListUser({ theme, navigation }: Props) {
       <FlatList data={items} renderItem={({ item }) =>
         <View style={styles.lists}>
           <Title>{item.userName}</Title>
+          <Paragraph>{item.userPuskesmas}</Paragraph>
           { item.userRole !== 'System Admin' && 
           <Button mode='outlined' style={styles.button} onPress={() => onChangeRole(item)}>{item.userRole}</Button>
           }
