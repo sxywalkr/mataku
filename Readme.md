@@ -44,3 +44,5 @@ The Firebase Authentication Kit supports multiple authentication providers. Foll
 
 get sha1 from main folder
 keytool -list -v -keystore ./android/app/debug.keystore -alias androiddebugkey -storepass android -keypass android
+
+v5
