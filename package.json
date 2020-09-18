@@ -9,6 +9,7 @@
     "rename-project": "node scripts/rename.js",
     "run-android:aap": "cd android && ./gradlew bundleRelease",
     "run-android:apk": "cd android && ./gradlew assembleRelease",
+    "run-grclean": "cd android && ./gradlew clean",
     "test": "jest",
     "lint": "eslint .",
     "postinstall": "jetifier"

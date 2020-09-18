@@ -31,10 +31,13 @@ function EditItem({ theme, navigation, route }: Props) {
   const [error, setError] = useState('');
   const [itemKey, setItemKey] = useState(q === 'New' ? '' : r.itemUid)
   const [itemNama, setItemNama] = useState(q === 'New' ? '' : r.itemNama)
+  const [itemTelepon1, setItemTelepon1] = useState(q === 'New' ? '' : r.itemTelepon1)
+  const [itemTelepon2, setItemTelepon2] = useState(q === 'New' ? '' : r.itemTelepon2)
   const [itemAlamat, setItemAlamat] = useState(q === 'New' ? '' : r.itemAlamat)
   const [itemUmur, setItemUmur] = useState(q === 'New' ? '' : r.itemUmur)
   const [itemJenisKelamin, setItemJenisKelamin] = useState(q === 'New' ? '' : r.itemJenisKelamin)
   const [itemPekerjaan, setItemPekerjaan] = useState(q === 'New' ? '' : r.itemPekerjaan)
+  const [itemJaminanKesehatan, setItemJaminanKesehatan] = useState(q === 'New' ? '' : r.itemJaminanKesehatan)
   const [itemKabupaten, setItemKabupaten] = useState(q === 'New' ? '' : r.itemKabupaten)
   const [itemKecamatan, setItemKecamatan] = useState(q === 'New' ? '' : r.itemKecamatan)
   const [itemDesaKelurahan, setItemDesaKelurahan] = useState(q === 'New' ? '' : r.itemDesaKelurahan)
@@ -153,10 +156,13 @@ function EditItem({ theme, navigation, route }: Props) {
           tmName: user.displayName,
           itemUid: QQ,
           itemNama,
+          itemTelepon1,
+          itemTelepon2,
           itemAlamat,
           itemUmur,
           itemJenisKelamin,
           itemPekerjaan,
+          itemJaminanKesehatan,
           itemKabupaten,
           itemKecamatan,
           itemDesaKelurahan,
@@ -195,6 +201,22 @@ function EditItem({ theme, navigation, route }: Props) {
         <TextInput
           style={styles.input}
           mode="outlined"
+          label="Telepon 1"
+          keyboardType='phone-pad'
+          value={itemTelepon1}
+          onChangeText={setItemTelepon1}
+        />
+        <TextInput
+          style={styles.input}
+          mode="outlined"
+          label="Telepon 2"
+          keyboardType='phone-pad'
+          value={itemTelepon2}
+          onChangeText={setItemTelepon2}
+        />
+        <TextInput
+          style={styles.input}
+          mode="outlined"
           label="Alamat"
           value={itemAlamat}
           onChangeText={setItemAlamat}
@@ -204,7 +226,7 @@ function EditItem({ theme, navigation, route }: Props) {
           mode="outlined"
           label="Umur"
           value={itemUmur}
-          keyboardType='number-pad'
+          keyboardType='phone-pad'
           onChangeText={setItemUmur}
         />
         {/* <TextInput
@@ -234,6 +256,20 @@ function EditItem({ theme, navigation, route }: Props) {
           value={itemPekerjaan}
           onChangeText={setItemPekerjaan}
         />
+        <View style={{ marginTop: 15 }}>
+          <Subheading>Jaminan Kesehatan</Subheading>
+          <Picker
+            selectedValue={itemJaminanKesehatan}
+            style={{ height: 60, width: 150 }}
+            onValueChange={(itemValue, itemIndex) =>
+              setItemJaminanKesehatan(itemValue)
+            }>
+            <Picker.Item label="-Pilih-" value="" />
+            <Picker.Item label="BPJS" value="BPJS" />
+            <Picker.Item label="Umum" value="Umum" />
+            <Picker.Item label="Asuransi Lain" value="Asuransi Lain" />
+          </Picker>
+        </View>
         <TextInput
           style={styles.input}
           mode="outlined"
@@ -337,7 +373,7 @@ function EditItem({ theme, navigation, route }: Props) {
           </View>
         </View>
         <Button
-          disabled={!itemNama || !itemAlamat || !itemUmur || !itemJenisKelamin || !itemPekerjaan || !itemKabupaten || !itemKecamatan || !itemDesaKelurahan || !itemPuskesmas
+          disabled={!itemNama || !itemTelepon1 || !itemTelepon2 || !itemAlamat || !itemUmur || !itemJenisKelamin || !itemPekerjaan || !itemJaminanKesehatan || !itemKabupaten || !itemKecamatan || !itemDesaKelurahan || !itemPuskesmas
             || !itemVisusMataKiri || !itemVisusMataKanan || !avatarSource1 === null || !avatarSource2 === null }
           mode="outlined"
           loading={savingItem}
